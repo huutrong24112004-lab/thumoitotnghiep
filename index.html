@@ -322,6 +322,17 @@ h1,h2,h3,h4,.eyebrow,.btn,.namechip,.quick-facts span,.quick-greeting,.portrait-
 .rsvp .sectionhead>p:last-child{color:#56515a!important}
 .rsvp .status{white-space:pre-line}
 .rsvp .form button[disabled]{opacity:.65;cursor:wait;transform:none}
+
+/* Tăng độ tương phản tiêu đề và liên kết sơ đồ IUH */
+.campus-map-card .map-heading h4{
+  color:#fff4d8!important;
+  text-shadow:0 2px 10px rgba(0,0,0,.45)!important;
+}
+.campus-map-card .map-heading>a{
+  color:#ffca55!important;
+  text-shadow:0 1px 8px rgba(0,0,0,.45)!important;
+}
+
 </style>
 </head>
 <body>
@@ -365,20 +376,41 @@ h1,h2,h3,h4,.eyebrow,.btn,.namechip,.quick-facts span,.quick-greeting,.portrait-
 <script>
 (function(){'use strict';const $=id=>document.getElementById(id);const entry=$('entry'),site=$('site');let guest='',choice='Chắc chắn đến';const escapeText=s=>String(s).trim().replace(/\s+/g,' ').slice(0,70);function toast(t){const el=$('toast');el.textContent=t;el.classList.remove('hidden');setTimeout(()=>el.classList.add('hidden'),3500)}let musicPlaying=false;function startMusic(){const frame=$('musicFrame');if(!frame.src){frame.src='https://www.youtube-nocookie.com/embed/5AYUuAqmY6E?autoplay=1&start=63&playsinline=1&rel=0&enablejsapi=1';musicPlaying=false;$('musicControl').classList.remove('hidden');$('musicControl').textContent='♫ NẾU CHƯA NGHE, NHẤN ĐỂ PHÁT'}}
 function enter(name){guest=escapeText(name);if(!guest)return;document.querySelectorAll('.guestName').forEach(el=>el.textContent=guest);$('rsvpName').value=guest;entry.classList.add('hidden');site.classList.add('active');document.body.style.overflow='';startMusic();launchFireworks();window.scrollTo(0,0)}$('welcomeForm').addEventListener('submit',e=>{e.preventDefault();enter($('guestInput').value)});document.querySelectorAll('.choice').forEach(b=>b.addEventListener('click',()=>{choice=b.dataset.choice;document.querySelectorAll('.choice').forEach(x=>x.classList.toggle('selected',x===b))}));// DÁN URL WEB APP GOOGLE APPS SCRIPT VÀO BIẾN BÊN DƯỚI SAU KHI TRIỂN KHAI
-const GOOGLE_SHEETS_WEB_APP_URL='PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+const GOOGLE_SHEETS_WEB_APP_URL='PASTE_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
 $('rsvpForm').addEventListener('submit',async e=>{
  e.preventDefault();
- const name=escapeText($('rsvpName').value),msg=$('message').value.trim();
+ const name=$('rsvpName').value.trim();
+ const msg=$('message').value.trim();
  if(!name)return;
  const submitBtn=$('rsvpForm').querySelector('button[type="submit"]');
  const status=$('rsvpStatus');
  if(!GOOGLE_SHEETS_WEB_APP_URL.startsWith('https://script.google.com/macros/s/')){
-   status.textContent='Biểu mẫu chưa được kết nối Google Sheet. Trọng cần hoàn tất bước kết nối trong file HUONG_DAN_KET_NOI_GOOGLE_SHEET.txt trước khi nhận phản hồi.';
-   status.style.color='#9b2c2c'; return;
+   status.textContent='Biểu mẫu chưa được kết nối. Trọng vui lòng hoàn tất bước triển khai Apps Script theo file HUONG_DAN_KET_NOI_GOOGLE_SHEET.txt.';
+   status.style.color='#9b2c2c';
+   return;
  }
- submitBtn.disabled=true;submitBtn.textContent='ĐANG GỬI...';
- status.style.color='#334e34';status.textContent='Đang gửi phản hồi của bạn...';
- const payload=new URLSearchParams({name:name,attendance:choice,message:msg,submittedAt:new Date().toISOString(),event:'Lễ tốt nghiệp Nguyễn Hữu Trọng - IUH 2026'});
+ submitBtn.disabled=true;
+ submitBtn.textContent='ĐANG GỬI...';
+ status.style.color='#334e34';
+ status.textContent='Đang gửi lời chúc và xác nhận tham dự...';
+ const payload=new URLSearchParams({
+   name:name,
+   attendance:choice,
+   message:msg
+ });
+ try{
+   // no-cors tránh preflight; Apps Script nhận form-urlencoded qua e.parameter.
+   await fetch(GOOGLE_SHEETS_WEB_APP_URL,{method:'POST',mode:'no-cors',body:payload});
+   status.textContent='Cảm ơn '+name+'! Lời chúc và phản hồi của bạn đã được gửi đến Trọng ❤️';
+   $('message').value='';
+ }catch(err){
+   status.textContent='Chưa gửi được do kết nối mạng. Bạn vui lòng thử lại nhé!';
+   status.style.color='#9b2c2c';
+ }finally{
+   submitBtn.disabled=false;
+   submitBtn.textContent='GỬI LỜI PHẢN HỒI ↗';
+ }
+});
  try{
    await fetch(GOOGLE_SHEETS_WEB_APP_URL,{method:'POST',mode:'no-cors',body:payload});
    status.textContent='Cảm ơn '+name+'! Phản hồi của bạn đã được gửi. Trọng sẽ xem lại trong danh sách khách mời nhé ❤️';
