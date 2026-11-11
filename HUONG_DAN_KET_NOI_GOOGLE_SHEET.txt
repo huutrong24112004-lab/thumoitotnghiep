@@ -1,0 +1,41 @@
+HƯỚNG DẪN KẾT NỐI PHẢN HỒI VỚI GOOGLE SHEETS
+================================================
+
+Trong thư mục này có index.html, thư mục assets, GOOGLE_APPS_SCRIPT.gs và hướng dẫn này.
+
+LƯU Ý: Website đã có sẵn phần gửi phản hồi, nhưng bạn cần kết nối Google Sheet một lần để dữ liệu thực sự được lưu vào tài khoản của bạn.
+
+BƯỚC 1 — TẠO GOOGLE SHEET
+1. Mở https://sheets.google.com và tạo Trang tính trống.
+2. Đặt tên: PHẢN HỒI KHÁCH MỜI - TỐT NGHIỆP HỮU TRỌNG.
+3. Giữ trang tính đầu tiên (Sheet1).
+
+BƯỚC 2 — THÊM MÃ NHẬN PHẢN HỒI
+1. Trong Google Sheet, chọn Tiện ích mở rộng (Extensions) > Apps Script.
+2. Xóa mã mẫu, mở file GOOGLE_APPS_SCRIPT.gs trong thư mục này và sao chép toàn bộ mã.
+3. Dán vào Apps Script rồi nhấn Lưu (Save).
+
+BƯỚC 3 — TRIỂN KHAI WEB APP
+1. Trong Apps Script, chọn Deploy > New deployment.
+2. Chọn loại Web app.
+3. Execute as: Me.
+4. Who has access: Anyone.
+5. Nhấn Deploy, cấp quyền theo yêu cầu và sao chép URL Web app có dạng https://script.google.com/macros/s/.../exec.
+
+BƯỚC 4 — DÁN URL VÀO WEBSITE
+1. Mở index.html bằng VS Code hoặc trình soạn thảo văn bản.
+2. Tìm dòng const GOOGLE_SHEETS_WEB_APP_URL='PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+3. Thay phần PASTE... bằng URL Web app bạn vừa sao chép, giữ nguyên dấu nháy đơn.
+4. Lưu index.html.
+
+BƯỚC 5 — CẬP NHẬT GITHUB PAGES
+1. Tải index.html mới lên repository GitHub, thay thế file cũ.
+2. Giữ nguyên thư mục assets.
+3. Commit changes, chờ GitHub Pages cập nhật.
+4. Mở website bằng điện thoại, gửi thử một phản hồi rồi kiểm tra Google Sheet.
+
+CÁC CỘT ĐƯỢC GHI: Thời gian nhận, Họ và tên, Xác nhận tham dự, Lời nhắn, Sự kiện.
+
+LƯU Ý RIÊNG TƯ: Web app cho phép khách truy cập gửi dữ liệu nên URL triển khai được nhúng công khai trong website. Không đưa thông tin bí mật vào mã. Chỉ chia sẻ quyền xem Google Sheet với người bạn tin cậy.
+
+Nếu bạn chỉnh sửa Apps Script sau này, vào Deploy > Manage deployments > Edit > New version để cập nhật.
