@@ -283,19 +283,19 @@ h1,h2,h3,h4,.eyebrow,.btn,.namechip,.quick-facts span,.quick-greeting,.portrait-
 }
 @media(max-width:560px){
  .shell{width:min(100% - 28px,1160px)}
- .quick-top-area{display:block;min-height:255px;padding-top:10px}
- .quick-copy{padding:20px 0 0;max-width:72%}
+ .quick-top-area{display:block;min-height:205px;padding-top:4px}
+ .quick-copy{padding:15px 0 0;max-width:60%;position:relative;z-index:3}
  .quick-copy .eyebrow{font-size:9px;letter-spacing:.14em}
- .graduation-heading{gap:8px!important;margin:14px 0 13px}
- .graduation-heading .graduation-word{font-size:clamp(39px,10.5vw,54px);letter-spacing:-.075em}
- .graduation-heading .graduation-subtitle{font-size:clamp(12px,3.2vw,16px);line-height:1.35}
- .namechip{font-size:10px;padding:9px 13px}
- .cutout-stage{position:absolute;right:-12px;top:0;width:49%;height:260px;margin:0;pointer-events:none}
+ .graduation-heading{gap:7px!important;margin:11px 0 10px}
+ .graduation-heading .graduation-word{font-size:clamp(34px,9vw,48px);letter-spacing:-.075em}
+ .graduation-heading .graduation-subtitle{font-size:clamp(10px,2.8vw,13px);line-height:1.3;max-width:100%}
+ .namechip{font-size:10px;padding:8px 12px}
+ .cutout-stage{position:absolute;right:-5px;top:-18px;width:42%;height:225px;margin:0;pointer-events:none;z-index:1}
  .graduation-cutout{height:100%;object-position:center bottom}
- .portrait-glow{width:150px;height:150px;right:0;top:40px}
- .portrait-stamp{width:56px;height:56px;right:0;top:7px;font-size:7px}
- .portrait-stamp strong{font-size:14px}
- .quick-invite-card{margin-top:6px;padding:19px 17px;border-radius:19px}
+ .portrait-glow{width:135px;height:135px;right:0;top:28px}
+ .portrait-stamp{width:52px;height:52px;right:0;top:4px;font-size:7px}
+ .portrait-stamp strong{font-size:13px}
+ .quick-invite-card{margin-top:0;padding:19px 17px;border-radius:19px}
  .quick-greeting{font-size:19px}
  .quick-invite-card>p:not(.quick-greeting){font-size:14px;line-height:1.65}
  .quick-facts{grid-template-columns:1fr;gap:9px}
@@ -305,6 +305,15 @@ h1,h2,h3,h4,.eyebrow,.btn,.namechip,.quick-facts span,.quick-greeting,.portrait-
  .quick-phone a{font-size:17px}
  .quick-actions{display:grid;grid-template-columns:1fr}
  .quick-actions .btn{width:100%;font-size:11px}
+}
+
+
+@media(max-width:390px){
+ .quick-top-area{min-height:190px}
+ .quick-copy{max-width:61%;padding-top:12px}
+ .graduation-heading .graduation-word{font-size:clamp(32px,8.8vw,39px)}
+ .graduation-heading .graduation-subtitle{font-size:10px}
+ .cutout-stage{width:40%;height:205px;top:-14px}
 }
 
 </style>
